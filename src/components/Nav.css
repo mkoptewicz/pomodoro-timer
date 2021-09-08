@@ -1,0 +1,16 @@
+.nav {
+ padding: 1em;
+ font-size: 1.25rem;
+}
+
+.nav ul {
+  display: flex;
+  justify-content: space-around;
+  color: #ffd23fff;
+  list-style: none;
+}
+.nav ul a {
+  color: inherit;
+  text-decoration: none;
+  text-transform: uppercase;
+}
