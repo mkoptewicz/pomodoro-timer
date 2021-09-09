@@ -2,29 +2,4 @@ h1 {
   margin: 2rem auto;
 }
 
-.circle {
-  position: relative;
-}
-.circle__svg {
- transform: rotate(-90deg);
-}
 
-.circle__progress {
-  fill: none;
-  stroke: #006daaff;
-  stroke-width: 9;
-  stroke-opacity: 0.5;
-  stroke-linecap: round;
-}
-.circle__progress--fill {
-  stroke-opacity: 1;
-  stroke-dasharray: 603;
-  stroke-dashoffset: 603;
-}
-.timer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 2.5rem;
-}
