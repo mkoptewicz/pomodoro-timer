@@ -1,0 +1,40 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 2rem;
+  font-size: 1.5rem;
+}
+.settings * + * {
+  margin-top: 1rem;
+}
+.settings input {
+  color: white;
+  background-color: #0f1a20ff;
+  border: none;
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 0.25em 0.5em;
+}
+.button-container {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.settings .button {
+  width: 120px;
+  color: white;
+  background-color: #006daaff;
+  font-size: 1rem;
+  font-family: inherit;
+
+  padding: 0.75em 2em;
+  border: none;
+  border-radius: 10px;
+}
+.settings .button--cancel {
+  margin-top: 0;
+  background-color: #006daa77;
+}
