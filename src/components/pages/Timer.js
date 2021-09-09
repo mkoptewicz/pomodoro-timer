@@ -9,15 +9,21 @@ const Timer = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [elapsedTimeInSeconds, setElapsedTimeInSeconds] = useState(0);
 
+  const defaultTimeInSeconds = 6;
+
   useEffect(() => {
     let interval;
+    if (elapsedTimeInSeconds >= defaultTimeInSeconds) {
+      setIsRunning(false);
+      setElapsedTimeInSeconds(0);
+    }
     isRunning
       ? (interval = setInterval(() => {
           setElapsedTimeInSeconds(prevTime => prevTime + 0.1);
         }, 100))
       : clearInterval(interval);
     return () => clearInterval(interval);
-  }, [isRunning]);
+  }, [elapsedTimeInSeconds, isRunning]);
 
   const startHandler = () => {
     setIsRunning(true);
@@ -41,7 +47,7 @@ const Timer = () => {
     <>
       <h1>Timer</h1>
       <ProgressCircle
-        timeInSeconds={5 * 60}
+        timeInSeconds={defaultTimeInSeconds}
         elapsedTimeInSeconds={elapsedTimeInSeconds}
       />
       <ControlButtons
