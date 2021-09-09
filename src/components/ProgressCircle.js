@@ -13,12 +13,12 @@ const ProgressCircle = ({ timeInSeconds }) => {
   const formatedMinutes = formatTimeInput(minutes);
   const formatedSeconds = formatTimeInput(seconds);
   return (
-    <div class="circle">
-      <svg width="200" height="200" class="circle__svg">
+    <div className="circle">
+      <svg width="200" height="200" className="circle__svg">
         <defs>
           <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#f42c04ff" />
-            <stop offset="100%" stop-color="#006daaff" />
+            <stop offset="0%" stopColor="#f42c04ff" />
+            <stop offset="100%" stopColor="#006daaff" />
           </linearGradient>
         </defs>
         <circle
@@ -26,19 +26,19 @@ const ProgressCircle = ({ timeInSeconds }) => {
           cy="100"
           r={radius}
           stroke="url(#gradient)"
-          class="circle__progress circle__progress--path"
+          className="circle__progress circle__progress--path"
         ></circle>
         <circle
           cx="100"
           cy="100"
           r={radius}
           stroke="url(#gradient)"
-          class="circle__progress circle__progress--fill"
+          className="circle__progress circle__progress--fill"
           style={fillStyle}
         ></circle>
       </svg>
 
-      <div class="timer">
+      <div className="timer">
         <span>
           {formatedMinutes}:{formatedSeconds}
         </span>
