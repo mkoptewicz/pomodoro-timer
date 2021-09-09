@@ -2,7 +2,7 @@ import formatTimeInput from "../lib/formatTimeInput";
 import "./ProgressCircle.css";
 
 const ProgressCircle = ({ timeInSeconds, elapsedTimeInSeconds }) => {
-  const radius = 96;
+  const radius = 100;
   const pathLength = 2 * Math.PI * radius;
   const passedTimeInPercent = elapsedTimeInSeconds / timeInSeconds;
   const dashoffset = pathLength - pathLength * passedTimeInPercent;
@@ -27,8 +27,8 @@ const ProgressCircle = ({ timeInSeconds, elapsedTimeInSeconds }) => {
           </linearGradient>
         </defs>
         <circle
-          cx="110"
-          cy="110"
+          cx="50%"
+          cy="50%"
           r={radius}
           stroke="url(#gradient)"
           className="circle__progress circle__progress--path"
