@@ -1,0 +1,16 @@
+.control-buttons {
+  /* outline: 1px solid red; */
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem auto;
+}
+.control-buttons button {
+  border: none;
+  border-radius: 10px;
+  color: white;
+  background-color: #006daaff;
+  font-size: 1rem;
+  font-family: inherit;
+  padding: 0.75em 2em;
+}
