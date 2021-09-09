@@ -8,6 +8,12 @@
 .settings * + * {
   margin-top: 1rem;
 }
+.settings label,
+.inputs-container {
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
 .settings input {
   color: white;
   background-color: #0f1a20ff;
