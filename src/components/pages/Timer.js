@@ -9,7 +9,7 @@ const Timer = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [elapsedTimeInSeconds, setElapsedTimeInSeconds] = useState(0);
 
-  const defaultTimeInSeconds = 6;
+  const defaultTimeInSeconds = 10;
 
   useEffect(() => {
     let interval;
@@ -23,7 +23,7 @@ const Timer = () => {
         }, 100))
       : clearInterval(interval);
     return () => clearInterval(interval);
-  }, [elapsedTimeInSeconds, isRunning]);
+  }, [elapsedTimeInSeconds, defaultTimeInSeconds, isRunning]);
 
   const startHandler = () => {
     setIsRunning(true);
