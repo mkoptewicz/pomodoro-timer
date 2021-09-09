@@ -1,3 +1,4 @@
+import formatTimeInput from "../lib/formatTimeInput";
 import "./ProgressCircle.css";
 
 const ProgressCircle = ({ timeInSeconds }) => {
@@ -9,6 +10,8 @@ const ProgressCircle = ({ timeInSeconds }) => {
   };
   const minutes = Math.floor(timeInSeconds / 60);
   const seconds = Math.floor(timeInSeconds % 60);
+  const formatedMinutes = formatTimeInput(minutes);
+  const formatedSeconds = formatTimeInput(seconds);
   return (
     <div class="circle">
       <svg width="200" height="200" class="circle__svg">
@@ -37,7 +40,7 @@ const ProgressCircle = ({ timeInSeconds }) => {
 
       <div class="timer">
         <span>
-          {minutes}:{seconds}
+          {formatedMinutes}:{formatedSeconds}
         </span>
       </div>
     </div>
