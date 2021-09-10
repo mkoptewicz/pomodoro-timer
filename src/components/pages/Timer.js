@@ -48,12 +48,13 @@ const Timer = () => {
   }, []);
 
   useEffect(() => {
-    document.addEventListener("visibilitychange", visibilityChangeHandler);
-
+    if (isRunning) {
+      document.addEventListener("visibilitychange", visibilityChangeHandler);
+    }
     return () => {
       document.removeEventListener("visibilitychange", visibilityChangeHandler);
     };
-  }, [visibilityChangeHandler]);
+  }, [isRunning, visibilityChangeHandler]);
 
   //Handlers
   const startHandler = () => {
