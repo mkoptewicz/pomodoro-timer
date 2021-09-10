@@ -1,19 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import ProgressCircle from "../ProgressCircle";
 import ControlButtons from "../ControlButtons";
 import "./Timer.css";
+import SettingsContext from "../context/settings-contex";
 
 const Timer = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [elapsedTimeInSeconds, setElapsedTimeInSeconds] = useState(0);
 
-  const defaultTimeInSeconds = 10;
+  const ctx = useContext(SettingsContext);
+  console.log(ctx);
+  const { pomodoroTimeInSeconds } = ctx.settings;
 
   useEffect(() => {
     let interval;
-    if (elapsedTimeInSeconds >= defaultTimeInSeconds) {
+    if (elapsedTimeInSeconds >= pomodoroTimeInSeconds) {
       setIsRunning(false);
       setElapsedTimeInSeconds(0);
     }
@@ -23,7 +26,7 @@ const Timer = () => {
         }, 100))
       : clearInterval(interval);
     return () => clearInterval(interval);
-  }, [elapsedTimeInSeconds, defaultTimeInSeconds, isRunning]);
+  }, [elapsedTimeInSeconds, pomodoroTimeInSeconds, isRunning]);
 
   const startHandler = () => {
     setIsRunning(true);
@@ -41,13 +44,11 @@ const Timer = () => {
     setIsPaused(false);
   };
 
-  console.log(elapsedTimeInSeconds);
-
   return (
     <>
       <h1>Timer</h1>
       <ProgressCircle
-        timeInSeconds={defaultTimeInSeconds}
+        timeInSeconds={pomodoroTimeInSeconds}
         elapsedTimeInSeconds={elapsedTimeInSeconds}
       />
       <ControlButtons
