@@ -1,9 +1,10 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback, useRef } from "react";
 
 import ProgressCircle from "../ProgressCircle";
 import ControlButtons from "../ControlButtons";
-import "./Timer.css";
 import SettingsContext from "../context/settings-contex";
+import completedSound from "../../sounds/completed.mp3";
+import "./Timer.css";
 
 const Timer = () => {
   const [isRunning, setIsRunning] = useState(false);
@@ -14,9 +15,12 @@ const Timer = () => {
   const { pomodoroMins, pomodoroSecs } = ctx.settings;
   const pomodoroTimeInSeconds = pomodoroMins * 60 + parseInt(pomodoroSecs);
 
+  // Run the timer every 0.1s
   useEffect(() => {
     let interval;
     if (elapsedTimeInSeconds >= pomodoroTimeInSeconds) {
+      const audio = new Audio(completedSound);
+      audio.play();
       setIsRunning(false);
       setElapsedTimeInSeconds(0);
     }
@@ -28,6 +32,30 @@ const Timer = () => {
     return () => clearInterval(interval);
   }, [elapsedTimeInSeconds, pomodoroTimeInSeconds, isRunning]);
 
+  //Run the timer when tab is inactive
+  const hideTime = useRef(0);
+
+  const visibilityChangeHandler = useCallback(() => {
+    if (document.hidden) {
+      hideTime.current = Date.now();
+    } else {
+      const elapsedTimeWhenHidden = (Date.now() - hideTime.current) / 1000;
+
+      setElapsedTimeInSeconds(
+        prevElapsedTime => prevElapsedTime + elapsedTimeWhenHidden
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("visibilitychange", visibilityChangeHandler);
+
+    return () => {
+      document.removeEventListener("visibilitychange", visibilityChangeHandler);
+    };
+  }, [visibilityChangeHandler]);
+
+  //Handlers
   const startHandler = () => {
     setIsRunning(true);
   };
