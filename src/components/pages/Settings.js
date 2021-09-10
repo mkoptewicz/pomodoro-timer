@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 import SettingsContext from "../context/settings-contex";
 import "./Settings.css";
 
@@ -14,6 +15,7 @@ const Settings = () => {
   });
 
   const ctx = useContext(SettingsContext);
+  const history = useHistory();
 
   const {
     pomodoroMins,
@@ -24,6 +26,10 @@ const Settings = () => {
     longBreakSecs,
     longBreakInterval,
   } = settings;
+
+  const clickHandler = () => {
+    history.push("/");
+  };
 
   const submitSettingsHandler = e => {
     e.preventDefault();
@@ -39,7 +45,9 @@ const Settings = () => {
       longBreakTimeInSeconds,
       longBreakInterval,
     });
+    clickHandler();
   };
+
   const settingsChangeHandler = e => {
     //remove padding for interval input and set it's value to number
     const value =
@@ -52,6 +60,7 @@ const Settings = () => {
       [e.target.name]: value,
     });
   };
+
   return (
     <>
       <h2>Settings</h2>
@@ -137,7 +146,7 @@ const Settings = () => {
         </label>
         <div className="button-container">
           <button className="button">Confirm</button>
-          <button className="button button--cancel" type="button">
+          <button onClick={clickHandler} className="button button--cancel" type="button">
             Cancel
           </button>
         </div>
