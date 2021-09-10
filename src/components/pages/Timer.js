@@ -11,8 +11,8 @@ const Timer = () => {
   const [elapsedTimeInSeconds, setElapsedTimeInSeconds] = useState(0);
 
   const ctx = useContext(SettingsContext);
-  console.log(ctx);
-  const { pomodoroTimeInSeconds } = ctx.settings;
+  const { pomodoroMins, pomodoroSecs } = ctx.settings;
+  const pomodoroTimeInSeconds = pomodoroMins * 60 + parseInt(pomodoroSecs);
 
   useEffect(() => {
     let interval;

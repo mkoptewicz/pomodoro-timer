@@ -1,11 +1,11 @@
-const formatTimeInput = (num, maxValue) => {
-  if (num > maxValue) {
+const formatTimeInput = (num, maxValue, padLength) => {
+  if (+num > maxValue) {
     num = maxValue;
   }
-  if (num < 0) {
+  if (+num < 0) {
     num = 0;
   }
-  return num.toString().padStart(2, "0");
+  return Number(num).toString().padStart(padLength, "0");
 };
 
 export default formatTimeInput;

@@ -1,22 +1,11 @@
 import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import SettingsContext from "../context/settings-contex";
+import formatTimeInput from "../../lib/formatTimeInput";
 import "./Settings.css";
 
 const Settings = () => {
-  const [settings, setSettings] = useState({
-    pomodoroMins: "25",
-    pomodoroSecs: "00",
-    shortBreakMins: "05",
-    shortBreakSecs: "00",
-    longBreakMins: "05",
-    longBreakSecs: "00",
-    longBreakInterval: 4,
-  });
-
   const ctx = useContext(SettingsContext);
-  const history = useHistory();
-
   const {
     pomodoroMins,
     pomodoroSecs,
@@ -25,7 +14,19 @@ const Settings = () => {
     longBreakMins,
     longBreakSecs,
     longBreakInterval,
-  } = settings;
+  } = ctx.settings;
+
+  const [settings, setSettings] = useState({
+    pomodoroMins,
+    pomodoroSecs,
+    shortBreakMins,
+    shortBreakSecs,
+    longBreakMins,
+    longBreakSecs,
+    longBreakInterval,
+  });
+
+  const history = useHistory();
 
   const clickHandler = () => {
     history.push("/");
@@ -34,26 +35,18 @@ const Settings = () => {
   const submitSettingsHandler = e => {
     e.preventDefault();
 
-    const pomodoroTimeInSeconds = pomodoroMins * 60 + parseInt(pomodoroSecs);
-    const shortBreakTimeInSeconds =
-      shortBreakMins * 60 + parseInt(shortBreakSecs);
-    const longBreakTimeInSeconds = longBreakMins * 60 + parseInt(longBreakSecs);
-
     ctx.setSettings({
-      pomodoroTimeInSeconds,
-      shortBreakTimeInSeconds,
-      longBreakTimeInSeconds,
-      longBreakInterval,
+      ...settings,
     });
     clickHandler();
   };
 
   const settingsChangeHandler = e => {
-    //remove padding for interval input and set it's value to number
+    //remove padding for interval input 
     const value =
       e.target.name === "longBreakInterval"
-        ? +e.target.value
-        : e.target.value.padStart(2, "0");
+        ? formatTimeInput(e.target.value, 10, 1)
+        : formatTimeInput(e.target.value, 59, 2);
 
     setSettings({
       ...settings,
@@ -71,7 +64,7 @@ const Settings = () => {
             <input
               type="number"
               name="pomodoroMins"
-              value={pomodoroMins}
+              value={settings.pomodoroMins}
               onChange={settingsChangeHandler}
               min="0"
               max="60"
@@ -80,7 +73,7 @@ const Settings = () => {
             <input
               type="number"
               name="pomodoroSecs"
-              value={pomodoroSecs}
+              value={settings.pomodoroSecs}
               onChange={settingsChangeHandler}
               min="0"
               max="59"
@@ -93,7 +86,7 @@ const Settings = () => {
             <input
               type="number"
               name="shortBreakMins"
-              value={shortBreakMins}
+              value={settings.shortBreakMins}
               onChange={settingsChangeHandler}
               min="0"
               max="60"
@@ -102,7 +95,7 @@ const Settings = () => {
             <input
               type="number"
               name="shortBreakSecs"
-              value={shortBreakSecs}
+              value={settings.shortBreakSecs}
               onChange={settingsChangeHandler}
               min="0"
               max="59"
@@ -115,7 +108,7 @@ const Settings = () => {
             <input
               type="number"
               name="longBreakMins"
-              value={longBreakMins}
+              value={settings.longBreakMins}
               onChange={settingsChangeHandler}
               min="0"
               max="60"
@@ -124,7 +117,7 @@ const Settings = () => {
             <input
               type="number"
               name="longBreakSecs"
-              value={longBreakSecs}
+              value={settings.longBreakSecs}
               onChange={settingsChangeHandler}
               min="0"
               max="59"
@@ -137,7 +130,7 @@ const Settings = () => {
             <input
               type="number"
               name="longBreakInterval"
-              value={longBreakInterval}
+              value={settings.longBreakInterval}
               onChange={settingsChangeHandler}
               min="0"
               max="10"
@@ -146,7 +139,11 @@ const Settings = () => {
         </label>
         <div className="button-container">
           <button className="button">Confirm</button>
-          <button onClick={clickHandler} className="button button--cancel" type="button">
+          <button
+            onClick={clickHandler}
+            className="button button--cancel"
+            type="button"
+          >
             Cancel
           </button>
         </div>

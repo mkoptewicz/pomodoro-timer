@@ -2,19 +2,25 @@ import React, { useState } from "react";
 
 const SettingsContext = React.createContext({
   settings: {
-    pomodoroTimeInSeconds: 60,
-    shortBreakTimeInSeconds: 5,
-    longBreakTimeInSeconds: 15,
-    longBreakInterval: 3,
+    pomodoroMins: "25",
+    pomodoroSecs: "00",
+    shortBreakMins: "05",
+    shortBreakSecs: "00",
+    longBreakMins: "05",
+    longBreakSecs: "00",
+    longBreakInterval: "4",
   },
   setSettings: () => {},
 });
 export const SettingsContextProvider = props => {
   const [settings, setSettings] = useState({
-    pomodoroTimeInSeconds: 25 * 60,
-    shortBreakTimeInSeconds: 5 * 60,
-    longBreakTimeInSeconds: 15 * 60,
-    longBreakInterval: 3,
+    pomodoroMins: "25",
+    pomodoroSecs: "00",
+    shortBreakMins: "05",
+    shortBreakSecs: "00",
+    longBreakMins: "05",
+    longBreakSecs: "00",
+    longBreakInterval: "4",
   });
 
   return (

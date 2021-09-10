@@ -14,8 +14,8 @@ const ProgressCircle = ({ timeInSeconds, elapsedTimeInSeconds }) => {
   const timeLeftInSeconds = timeInSeconds - elapsedTimeInSeconds;
   const minutes = Math.floor(timeLeftInSeconds / 60);
   const seconds = Math.floor(timeLeftInSeconds % 60);
-  const formatedMinutes = formatTimeInput(minutes);
-  const formatedSeconds = formatTimeInput(seconds);
+  const formatedMinutes = formatTimeInput(minutes, 60, 2);
+  const formatedSeconds = formatTimeInput(seconds, 60, 2);
 
   return (
     <div className="circle">
