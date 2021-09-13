@@ -5,6 +5,8 @@ const TasksContext = React.createContext([
   {
     id: uuidv4(),
     title: "Task 1",
+    isCurrent: false,
+    isCompleted: false,
     pomodoroNumber: 4,
     pomodoroTimeInSeconds: 10,
     shortBreakTimeInSeconds: 3,
@@ -14,25 +16,29 @@ const TasksContext = React.createContext([
 ]);
 
 export const TasksContextProvider = props => {
-  const [tasks, setTasks] = useState([
+  const [tasks] = useState([
     {
       id: uuidv4(),
       title: "Task 1",
-      pomodoroNumber: 4,
-      pomodoroTimeInSeconds: 10,
-      shortBreakTimeInSeconds: 3,
-      longBreakTimeInSeconds: 5,
-      interval: 3,
-    },
-    {
-      id: uuidv4(),
-      title: "Task 2",
+      isCurrent: true,
+      isCompleted: false,
       pomodoroNumber: 2,
-      pomodoroTimeInSeconds: 10,
-      shortBreakTimeInSeconds: 3,
+      pomodoroTimeInSeconds: 3,
+      shortBreakTimeInSeconds: 2,
       longBreakTimeInSeconds: 5,
-      interval: 1,
+      interval: 2,
     },
+    // {
+    //   id: uuidv4(),
+    //   title: "Task 2",
+    //   isCurrent: false,
+    //   isCompleted:false
+    //   pomodoroNumber: 2,
+    //   pomodoroTimeInSeconds: 10,
+    //   shortBreakTimeInSeconds: 3,
+    //   longBreakTimeInSeconds: 5,
+    //   interval: 1,
+    // },
   ]);
 
   return (
