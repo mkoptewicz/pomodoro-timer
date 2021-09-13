@@ -12,39 +12,59 @@ import Timer from "./components/pages/Timer";
 import Tasks from "./components/pages/Tasks";
 import Settings from "./components/pages/Settings";
 import NotFound from "./components/pages/NotFound";
-import TasksContext from "./components/context/tasks-context";
-import templateTimers from "./lib/templateTimers";
+import getCurrentIndex from "./lib/getCurrentIndex";
 
 function App() {
   const [isRunning, setIsRunning] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [timerIteration, setTimerIteration] = useState(0);
   const [elapsedTimeInSeconds, setElapsedTimeInSeconds] = useState(0);
+
   //settings context
   const settingsCtx = useContext(SettingsContext);
-  const { pomodoroMins, pomodoroSecs } = settingsCtx.settings;
+  const {
+    pomodoroMins,
+    pomodoroSecs,
+    longBreakMins,
+    longBreakSecs,
+    shortBreakMins,
+    shortBreakSecs,
+    longBreakInterval,
+  } = settingsCtx.settings;
   const pomodoroTimeInSeconds = pomodoroMins * 60 + parseInt(pomodoroSecs);
+  const shortBreakTimeInSeconds =
+    shortBreakMins * 60 + parseInt(shortBreakSecs);
+  const longBreakTimeInSeconds = longBreakMins * 60 + parseInt(longBreakSecs);
+  const timeTemplate = [
+    pomodoroTimeInSeconds,
+    shortBreakTimeInSeconds,
+    longBreakTimeInSeconds,
+  ];
+  const currentIndex = getCurrentIndex(timerIteration, +longBreakInterval);
+  const currentTime = timeTemplate[currentIndex];
 
+  console.log(currentIndex);
+  
   //tasks context
-  const tasksCtx = useContext(TasksContext);
-  const tasks = templateTimers(tasksCtx);
-  console.log(tasks);
 
   // Run the timer every 0.1s
   useEffect(() => {
     let interval;
-    if (elapsedTimeInSeconds >= pomodoroTimeInSeconds) {
+    if (elapsedTimeInSeconds >= currentTime) {
       const audio = new Audio(completedSound);
       audio.play();
       setIsRunning(false);
+      setTimerIteration(prevIteration => prevIteration + 1);
       setElapsedTimeInSeconds(0);
     }
+
     isRunning
       ? (interval = setInterval(() => {
           setElapsedTimeInSeconds(prevTime => prevTime + 0.1);
         }, 100))
       : clearInterval(interval);
     return () => clearInterval(interval);
-  }, [elapsedTimeInSeconds, pomodoroTimeInSeconds, isRunning]);
+  }, [elapsedTimeInSeconds, currentTime, isRunning]);
 
   //Run the timer when tab is inactive
   const hideTime = useRef(0);
@@ -93,7 +113,7 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <Timer
-            timeInSeconds={pomodoroTimeInSeconds}
+            timeInSeconds={currentTime}
             elapsedTimeInSeconds={elapsedTimeInSeconds}
             isRunning={isRunning}
             isPaused={isPaused}
