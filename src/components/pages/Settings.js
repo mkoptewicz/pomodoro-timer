@@ -42,7 +42,7 @@ const Settings = () => {
   };
 
   const settingsChangeHandler = e => {
-    //remove padding for interval input 
+    //remove padding and change max number for interval input
     const value =
       e.target.name === "longBreakInterval"
         ? formatTimeInput(e.target.value, 10, 1)
@@ -59,7 +59,7 @@ const Settings = () => {
       <h2>Settings</h2>
       <form onSubmit={submitSettingsHandler} className="settings">
         <label>
-          Pomodoro Time{" "}
+          Pomodoro
           <div className="inputs-container">
             <input
               type="number"
@@ -81,7 +81,7 @@ const Settings = () => {
           </div>
         </label>
         <label>
-          Short break Time:
+          Short break:
           <div className="inputs-container">
             <input
               type="number"
@@ -103,7 +103,7 @@ const Settings = () => {
           </div>
         </label>
         <label>
-          Long break Time:
+          Long break:
           <div className="inputs-container">
             <input
               type="number"
