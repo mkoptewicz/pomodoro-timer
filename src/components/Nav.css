@@ -9,6 +9,9 @@
   color: #f0e100ff;
   list-style: none;
 }
+.nav li {
+  flex-basis: 100%;
+}
 .nav ul a {
   color: inherit;
   text-decoration: none;
