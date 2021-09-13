@@ -6,12 +6,12 @@ import "./Task.css";
 const Task = () => {
   return (
     <div className="task">
-      <button className="button-status">
-        <Check />
-      </button>
-      <h3>Task title but very long</h3>
       <button className="button-timer">
         <Play />
+      </button>
+      <h3>Task title but very long</h3>
+      <button className="button-status">
+        <Check />
       </button>
       <button className="button-edit">
         <Edit />
