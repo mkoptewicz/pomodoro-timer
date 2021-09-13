@@ -12,15 +12,22 @@ import Timer from "./components/pages/Timer";
 import Tasks from "./components/pages/Tasks";
 import Settings from "./components/pages/Settings";
 import NotFound from "./components/pages/NotFound";
+import TasksContext from "./components/context/tasks-context";
+import templateTimers from "./lib/templateTimers";
 
 function App() {
   const [isRunning, setIsRunning] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [elapsedTimeInSeconds, setElapsedTimeInSeconds] = useState(0);
-
+  //settings context
   const settingsCtx = useContext(SettingsContext);
   const { pomodoroMins, pomodoroSecs } = settingsCtx.settings;
   const pomodoroTimeInSeconds = pomodoroMins * 60 + parseInt(pomodoroSecs);
+
+  //tasks context
+  const tasksCtx = useContext(TasksContext);
+  const tasks = templateTimers(tasksCtx);
+  console.log(tasks);
 
   // Run the timer every 0.1s
   useEffect(() => {
