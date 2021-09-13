@@ -90,7 +90,7 @@ const Settings = () => {
               onChange={settingsChangeHandler}
               min="0"
               max="60"
-            />{" "}
+            />
             :
             <input
               type="number"
@@ -112,7 +112,7 @@ const Settings = () => {
               onChange={settingsChangeHandler}
               min="0"
               max="60"
-            />{" "}
+            />
             :
             <input
               type="number"

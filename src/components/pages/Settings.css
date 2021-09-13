@@ -43,3 +43,8 @@
   margin-top: 0;
   background-color: #006daa77;
 }
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
