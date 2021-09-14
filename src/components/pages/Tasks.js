@@ -1,7 +1,9 @@
+import { Link, useRouteMatch } from "react-router-dom";
 import Task from "../Task";
-import "./Tasks.css"
+import "./Tasks.css";
 
 const Tasks = () => {
+  const match = useRouteMatch();
   return (
     <>
       <h2>Tasks</h2>
@@ -12,7 +14,9 @@ const Tasks = () => {
         <Task />
         <Task />
       </div>
-      <h3>Completed tasks</h3>
+      <Link to={`${match.url}/addTask`}>
+        <button className="button">Add task</button>
+      </Link>
     </>
   );
 };
