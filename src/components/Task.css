@@ -17,6 +17,11 @@
 .task p {
   text-align: left;
 }
+.task a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .task button {
   color: inherit;
   background-color: transparent;

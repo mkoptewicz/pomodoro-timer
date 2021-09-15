@@ -2,8 +2,11 @@ import { ReactComponent as Check } from "../icons/check.svg";
 import { ReactComponent as Play } from "../icons/play.svg";
 import { ReactComponent as Edit } from "../icons/edit.svg";
 import { ReactComponent as Delete } from "../icons/delete.svg";
+
+import { Link, useRouteMatch } from "react-router-dom";
 import "./Task.css";
-const Task = ({ title, pomodoroNumber, pomodoroTimeInSeconds }) => {
+const Task = ({ id, title, pomodoroNumber, pomodoroTimeInSeconds }) => {
+  const match = useRouteMatch();
   return (
     <div className="task">
       <button className="button-timer">
@@ -13,9 +16,9 @@ const Task = ({ title, pomodoroNumber, pomodoroTimeInSeconds }) => {
       <button className="button-status">
         <Check />
       </button>
-      <button className="button-edit">
+      <Link to={`${match.url}/addTask/${id}`}>
         <Edit />
-      </button>
+      </Link>
       <button className="button-delete">
         <Delete />
       </button>

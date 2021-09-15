@@ -6,6 +6,9 @@
 }
 .add-task label {
   font-size: 1.5rem;
+  background-color: rgb(35, 61, 75);
+  padding: 0.25em 1em;
+  border-radius: 20px;
 }
 .add-task input {
   max-width: 50%;

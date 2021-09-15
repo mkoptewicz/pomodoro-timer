@@ -10,6 +10,10 @@ body {
   background-repeat: no-repeat;
   font-family: "Poppins", sans-serif;
 }
+a {
+  text-decoration: none;
+  color: inherit;
+}
 .app {
   max-width: 72rem;
   margin: 0 auto;

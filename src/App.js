@@ -44,8 +44,6 @@ function App() {
   const currentIndex = getCurrentIndex(timerIteration, +longBreakInterval);
   const currentTime = timeTemplate[currentIndex];
 
-  console.log(currentIndex);
-
   //tasks context
 
   // Run the timer every 0.1s
@@ -127,7 +125,10 @@ function App() {
         <Route path="/tasks" exact>
           <Tasks />
         </Route>
-        <Route path="/tasks/addTask">
+        <Route path="/tasks/addTask" exact>
+          <AddTask />
+        </Route>
+        <Route path="/tasks/addTask/:taskId">
           <AddTask />
         </Route>
         <Route path="/settings">
