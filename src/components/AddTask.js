@@ -51,7 +51,12 @@ const AddTask = () => {
           >
             Confirm
           </button>
-          <button className="button button--cancel">Cancel</button>
+          <button
+            onClick={() => history.push("/tasks")}
+            className="button button--cancel"
+          >
+            Cancel
+          </button>
         </div>
       </div>
     </>
