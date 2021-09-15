@@ -12,6 +12,7 @@ import Timer from "./components/pages/Timer";
 import Tasks from "./components/pages/Tasks";
 import Settings from "./components/pages/Settings";
 import NotFound from "./components/pages/NotFound";
+import AddTask from "./components/AddTask";
 import getCurrentIndex from "./lib/getCurrentIndex";
 
 function App() {
@@ -44,7 +45,7 @@ function App() {
   const currentTime = timeTemplate[currentIndex];
 
   console.log(currentIndex);
-  
+
   //tasks context
 
   // Run the timer every 0.1s
@@ -123,8 +124,11 @@ function App() {
             onContinue={continueHandler}
           />
         </Route>
-        <Route path="/tasks">
+        <Route path="/tasks" exact>
           <Tasks />
+        </Route>
+        <Route path="/tasks/addTask">
+          <AddTask />
         </Route>
         <Route path="/settings">
           <Settings />
