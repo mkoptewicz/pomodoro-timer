@@ -6,8 +6,9 @@ import "./Tasks.css";
 
 const Tasks = () => {
   const match = useRouteMatch();
+
   const tasksCtx = useContext(TasksContext);
-  console.log(tasksCtx.tasks);
+
   return (
     <>
       <h2>Tasks</h2>
