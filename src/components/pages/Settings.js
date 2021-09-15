@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import SettingsContext from "../context/settings-contex";
+import SettingsContext from "../../contexts/settings-contex";
 import formatTimeInput from "../../lib/formatTimeInput";
 import "./Settings.css";
 

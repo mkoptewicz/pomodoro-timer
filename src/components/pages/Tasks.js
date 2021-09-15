@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
-import TasksContext from "../context/tasks-context";
+import TasksContext from "../../contexts/tasks-context";
 import Task from "../Task";
 import "./Tasks.css";
 

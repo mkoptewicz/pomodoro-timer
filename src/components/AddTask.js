@@ -1,7 +1,7 @@
 import { useContext, useRef } from "react";
 import { useHistory } from "react-router";
 import "./AddTask.css";
-import TasksContext from "./context/tasks-context";
+import TasksContext from "../contexts/tasks-context";
 
 const AddTask = () => {
   const tasksCtx = useContext(TasksContext);

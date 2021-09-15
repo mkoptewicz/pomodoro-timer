@@ -2,7 +2,7 @@ import { useState, useEffect, useContext, useRef, useCallback } from "react";
 
 import { Switch, Route } from "react-router-dom";
 
-import SettingsContext from "./components/context/settings-contex";
+import SettingsContext from "./contexts/settings-contex";
 import completedSound from "./sounds/completed.mp3";
 
 import "./App.css";
