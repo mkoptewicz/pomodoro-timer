@@ -21,6 +21,12 @@ const Tasks = () => {
       <Link to={`${match.url}/addTask`}>
         <button className="button">Add task</button>
       </Link>
+      <button
+        onClick={tasksCtx.removeAllTasksHandler}
+        className="button button--remove"
+      >
+        Remove all
+      </button>
     </>
   );
 };

@@ -18,6 +18,7 @@ const TasksContext = React.createContext({
   ],
   addTaskHandler: () => {},
   editTaskHandler: () => {},
+  removeAllTasksHandler: () => {},
 });
 
 export const TasksContextProvider = props => {
@@ -73,9 +74,12 @@ export const TasksContextProvider = props => {
     });
     setTasks(updatedTasks);
   };
+  const removeAllTasksHandler = () => setTasks([]);
 
   return (
-    <TasksContext.Provider value={{ tasks, addTaskHandler, editTaskHandler }}>
+    <TasksContext.Provider
+      value={{ tasks, addTaskHandler, editTaskHandler, removeAllTasksHandler }}
+    >
       {props.children}
     </TasksContext.Provider>
   );
