@@ -28,23 +28,13 @@
   align-items: center;
   margin-bottom: 2rem;
 }
-.settings .button {
-  width: 120px;
-  color: white;
-  background-color: #006daaff;
-  font-size: 1rem;
-  font-family: inherit;
 
-  padding: 0.75em 2em;
-  border: none;
-  border-radius: 10px;
-}
 .settings .button--cancel {
   margin-top: 0;
   background-color: #006daa77;
 }
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

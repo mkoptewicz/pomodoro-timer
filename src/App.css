@@ -15,3 +15,15 @@ body {
   margin: 0 auto;
   text-align: center;
 }
+.button {
+  min-width: 120px;
+  color: white;
+  background-color: #006daaff;
+  font-size: 1rem;
+  font-family: inherit;
+
+  padding: 0.75em 2em;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}

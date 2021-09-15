@@ -7,13 +7,6 @@
 }
 .control-buttons .button {
   width: var(--small-btn-width);
-  color: white;
-  background-color: #006daaff;
-  font-size: 1rem;
-  font-family: inherit;
-  padding: 0.75em 2em;
-  border: none;
-  border-radius: 10px;
 }
 .control-buttons .button--wide {
   width: calc(2 * var(--small-btn-width) + 1rem);
