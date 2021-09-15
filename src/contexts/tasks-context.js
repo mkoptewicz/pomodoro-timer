@@ -18,6 +18,7 @@ const TasksContext = React.createContext({
   ],
   addTaskHandler: () => {},
   editTaskHandler: () => {},
+  removeTaskHandler: () => {},
   removeAllTasksHandler: () => {},
 });
 
@@ -74,11 +75,21 @@ export const TasksContextProvider = props => {
     });
     setTasks(updatedTasks);
   };
+  const removeTaskHandler = id => {
+    const updatedTasks = [...tasks].filter(task => task.id !== id);
+    setTasks(updatedTasks);
+  };
   const removeAllTasksHandler = () => setTasks([]);
 
   return (
     <TasksContext.Provider
-      value={{ tasks, addTaskHandler, editTaskHandler, removeAllTasksHandler }}
+      value={{
+        tasks,
+        addTaskHandler,
+        editTaskHandler,
+        removeTaskHandler,
+        removeAllTasksHandler,
+      }}
     >
       {props.children}
     </TasksContext.Provider>
