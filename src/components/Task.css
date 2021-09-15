@@ -16,6 +16,7 @@
 .task h3,
 .task p {
   text-align: left;
+  margin-bottom: 0;
 }
 .task a {
   display: flex;
@@ -26,6 +27,7 @@
   color: inherit;
   background-color: transparent;
   border: none;
+  cursor: pointer;
 }
 .button-timer {
   grid-column: 1/2;

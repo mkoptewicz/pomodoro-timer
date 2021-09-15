@@ -21,6 +21,9 @@
 .add-task input[type="number"] {
   max-width: 30%;
 }
+.button--cancel {
+  background-color: #006daa77;
+}
 .button-container {
   display: flex;
   gap: 1rem;
