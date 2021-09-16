@@ -6,23 +6,13 @@ import "./Settings.css";
 
 const Settings = () => {
   const ctx = useContext(SettingsContext);
-  const {
-    pomodoroMins,
-    pomodoroSecs,
-    shortBreakMins,
-    shortBreakSecs,
-    longBreakMins,
-    longBreakSecs,
-    longBreakInterval,
-  } = ctx.settings;
+  const { pomodoroMins, shortBreakMins, longBreakMins, longBreakInterval } =
+    ctx.settings;
 
   const [settings, setSettings] = useState({
     pomodoroMins,
-    pomodoroSecs,
     shortBreakMins,
-    shortBreakSecs,
     longBreakMins,
-    longBreakSecs,
     longBreakInterval,
   });
 
@@ -35,9 +25,7 @@ const Settings = () => {
   const submitSettingsHandler = e => {
     e.preventDefault();
 
-    ctx.setSettings({
-      ...settings,
-    });
+    ctx.setSettings(settings);
     clickHandler();
   };
 
@@ -69,15 +57,6 @@ const Settings = () => {
               min="0"
               max="60"
             />
-            :
-            <input
-              type="number"
-              name="pomodoroSecs"
-              value={settings.pomodoroSecs}
-              onChange={settingsChangeHandler}
-              min="0"
-              max="59"
-            />
           </div>
         </label>
         <label>
@@ -91,15 +70,6 @@ const Settings = () => {
               min="0"
               max="60"
             />
-            :
-            <input
-              type="number"
-              name="shortBreakSecs"
-              value={settings.shortBreakSecs}
-              onChange={settingsChangeHandler}
-              min="0"
-              max="59"
-            />
           </div>
         </label>
         <label>
@@ -112,15 +82,6 @@ const Settings = () => {
               onChange={settingsChangeHandler}
               min="0"
               max="60"
-            />
-            :
-            <input
-              type="number"
-              name="longBreakSecs"
-              value={settings.longBreakSecs}
-              onChange={settingsChangeHandler}
-              min="0"
-              max="59"
             />
           </div>
         </label>

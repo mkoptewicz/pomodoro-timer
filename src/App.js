@@ -10,10 +10,11 @@ import Tasks from "./components/pages/Tasks";
 import Settings from "./components/pages/Settings";
 import NotFound from "./components/pages/NotFound";
 import AddTask from "./components/AddTask";
-import getCurrentIndex from "./lib/getCurrentIndex";
+import getCurrentTimer from "./lib/getCurrentTimer";
 
 import "./App.css";
 import completedSound from "./sounds/completed.mp3";
+import TasksContext from "./contexts/tasks-context";
 
 function App() {
   const [isRunning, setIsRunning] = useState(false);
@@ -23,30 +24,30 @@ function App() {
 
   //settings context
   const settingsCtx = useContext(SettingsContext);
+
   const {
     pomodoroMins,
-    pomodoroSecs,
-    longBreakMins,
-    longBreakSecs,
     shortBreakMins,
-    shortBreakSecs,
-    longBreakInterval,
+    longBreakMins,
+    longBreakInterval: interval,
   } = settingsCtx.settings;
 
-  const pomodoroTimeInSeconds = pomodoroMins * 60 + parseInt(pomodoroSecs);
-  const shortBreakTimeInSeconds =
-    shortBreakMins * 60 + parseInt(shortBreakSecs);
-  const longBreakTimeInSeconds = longBreakMins * 60 + parseInt(longBreakSecs);
+  const defaultTask = {
+    id: null,
+    pomodoroTimeInSeconds: pomodoroMins * 60,
+    shortBreakTimeInSeconds: shortBreakMins * 60,
+    longBreakTimeInSeconds: longBreakMins * 60,
+    interval,
+    pomodoroNumber: 1,
+  };
 
-  const timeTemplate = [
-    pomodoroTimeInSeconds,
-    shortBreakTimeInSeconds,
-    longBreakTimeInSeconds,
-  ];
+  //tasks context
+  const { tasks } = useContext(TasksContext);
+  const currentTask = tasks.find(task => task.isCurrent) || defaultTask;
 
-  //Determine if it's pomodoro, longbreak or shortbreak based on current iteration
-  const currentTimerIndex = getCurrentIndex(timerIteration, +longBreakInterval);
-  const currentTime = timeTemplate[currentTimerIndex];
+  const completedPomodoros = Math.ceil(timerIteration / 2);
+
+  const currentTime = getCurrentTimer(currentTask, timerIteration);
 
   // Run the timer every 0.1s
   useEffect(() => {
@@ -122,6 +123,7 @@ function App() {
             onStop={stopHandler}
             onPause={pauseHandler}
             onContinue={continueHandler}
+            completedPomodoros={completedPomodoros}
           />
         </Route>
         <Route path="/tasks" exact>
