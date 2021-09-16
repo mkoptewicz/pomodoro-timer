@@ -21,6 +21,7 @@ function App() {
   const [isPaused, setIsPaused] = useState(false);
   const [timerIteration, setTimerIteration] = useState(0);
   const [elapsedTimeInSeconds, setElapsedTimeInSeconds] = useState(0);
+  const [pomodoroWasCompleted, setPomodoroWasCompleted] = useState(false);
 
   //settings context
   const settingsCtx = useContext(SettingsContext);
@@ -51,11 +52,13 @@ function App() {
 
   const currentTime = getCurrentTimer(currentTask, timerIteration);
 
+  //Mark as completed when all pomodoros set in the task are completed
   useEffect(() => {
     if (completedPomodoros === currentTask.pomodoroNumber) {
       completeTaskHandler(currentTask.id, completedPomodoros);
+      setPomodoroWasCompleted(true);
       setTimerIteration(0);
-      markAsCurrentHandler(null);
+      markAsCurrentHandler(null); // set every task isCurrent property to false
     }
   }, [
     currentTask.id,
@@ -108,6 +111,18 @@ function App() {
     };
   }, [isRunning, visibilityChangeHandler]);
 
+  //Hide message after 3 seconds
+  useEffect(() => {
+    let timeout;
+    if (pomodoroWasCompleted) {
+      timeout = setTimeout(() => setPomodoroWasCompleted(false), 3000);
+    }
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [pomodoroWasCompleted]);
+
   //Handlers
   const startHandler = () => {
     setIsRunning(true);
@@ -140,6 +155,7 @@ function App() {
             onPause={pauseHandler}
             onContinue={continueHandler}
             completedPomodoros={completedPomodoros}
+            pomodoroWasCompleted={pomodoroWasCompleted}
           />
         </Route>
         <Route path="/tasks" exact>
