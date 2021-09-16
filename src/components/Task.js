@@ -4,12 +4,32 @@ import { ReactComponent as Edit } from "../icons/edit.svg";
 import { ReactComponent as Delete } from "../icons/delete.svg";
 
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import TasksContext from "../contexts/tasks-context";
 import "./Task.css";
 
-const Task = ({ id, title, pomodoroNumber, pomodoroTimeInSeconds }) => {
-  const { removeTaskHandler, markAsCurrentHandler } = useContext(TasksContext);
+const Task = ({
+  id,
+  title,
+  pomodoroNumber,
+  pomodoroTimeInSeconds,
+  completedPomodoros,
+}) => {
+  const { removeTaskHandler, markAsCurrentHandler, completeTaskHandler } =
+    useContext(TasksContext);
+
+  useEffect(() => {
+    if (completedPomodoros === pomodoroNumber) {
+      completeTaskHandler(id, completedPomodoros);
+      markAsCurrentHandler(null);
+    }
+  }, [
+    id,
+    pomodoroNumber,
+    completedPomodoros,
+    completeTaskHandler,
+    markAsCurrentHandler,
+  ]);
 
   return (
     <div className="task">
@@ -31,7 +51,9 @@ const Task = ({ id, title, pomodoroNumber, pomodoroTimeInSeconds }) => {
         <Delete />
       </button>
       <p>{Math.round(pomodoroTimeInSeconds / 60)} min</p>
-      <div className="completed">0/{pomodoroNumber}</div>
+      <div className="completed">
+        {completedPomodoros}/{pomodoroNumber}
+      </div>
     </div>
   );
 };

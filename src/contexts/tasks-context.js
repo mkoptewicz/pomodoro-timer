@@ -21,6 +21,7 @@ const TasksContext = React.createContext({
   removeTaskHandler: () => {},
   removeAllTasksHandler: () => {},
   markAsCurrentHandler: () => {},
+  completeTaskHandler: () => {},
 });
 
 export const TasksContextProvider = props => {
@@ -92,6 +93,16 @@ export const TasksContextProvider = props => {
     });
     setTasks(updatedTasks);
   };
+  const completeTaskHandler = id => {
+    const updatedTasks = tasks.map(task => {
+      if (task.id === id) {
+        const updatedTask = { ...task, isCompleted: true };
+        return updatedTask;
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+  };
 
   return (
     <TasksContext.Provider
@@ -102,6 +113,7 @@ export const TasksContextProvider = props => {
         removeTaskHandler,
         removeAllTasksHandler,
         markAsCurrentHandler,
+        completeTaskHandler,
       }}
     >
       {props.children}

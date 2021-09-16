@@ -14,13 +14,16 @@ const Timer = ({
   onStop,
   onPause,
   onContinue,
+  completedPomodoros,
 }) => {
   const { tasks } = useContext(TasksContext);
   const currentTask = tasks.find(task => task.isCurrent);
-  
+
   return (
     <>
-      {currentTask && <Task {...currentTask} />}
+      {currentTask && (
+        <Task {...currentTask} completedPomodoros={completedPomodoros} />
+      )}
       {!currentTask && <h1>Timer</h1>}
       <ProgressCircle
         timeInSeconds={timeInSeconds}
