@@ -4,7 +4,7 @@ import { ReactComponent as Edit } from "../icons/edit.svg";
 import { ReactComponent as Delete } from "../icons/delete.svg";
 
 import { Link } from "react-router-dom";
-import { useContext} from "react";
+import { useContext } from "react";
 import TasksContext from "../contexts/tasks-context";
 import "./Task.css";
 
@@ -13,12 +13,9 @@ const Task = ({
   title,
   pomodoroNumber,
   pomodoroTimeInSeconds,
-  completedPomodoros,
+  pomodorosCompleted,
 }) => {
-  const { removeTaskHandler, markAsCurrentHandler} =
-    useContext(TasksContext);
-
-  
+  const { removeTaskHandler, markAsCurrentHandler } = useContext(TasksContext);
 
   return (
     <div className="task">
@@ -41,7 +38,7 @@ const Task = ({
       </button>
       <p>{Math.round(pomodoroTimeInSeconds / 60)} min</p>
       <div className="completed">
-        {completedPomodoros}/{pomodoroNumber}
+        {pomodorosCompleted}/{pomodoroNumber}
       </div>
     </div>
   );
