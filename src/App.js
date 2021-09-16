@@ -3,9 +3,6 @@ import { useState, useEffect, useContext, useRef, useCallback } from "react";
 import { Switch, Route } from "react-router-dom";
 
 import SettingsContext from "./contexts/settings-contex";
-import completedSound from "./sounds/completed.mp3";
-
-import "./App.css";
 
 import Nav from "./components/Nav";
 import Timer from "./components/pages/Timer";
@@ -14,6 +11,9 @@ import Settings from "./components/pages/Settings";
 import NotFound from "./components/pages/NotFound";
 import AddTask from "./components/AddTask";
 import getCurrentIndex from "./lib/getCurrentIndex";
+
+import "./App.css";
+import completedSound from "./sounds/completed.mp3";
 
 function App() {
   const [isRunning, setIsRunning] = useState(false);
@@ -32,19 +32,21 @@ function App() {
     shortBreakSecs,
     longBreakInterval,
   } = settingsCtx.settings;
+
   const pomodoroTimeInSeconds = pomodoroMins * 60 + parseInt(pomodoroSecs);
   const shortBreakTimeInSeconds =
     shortBreakMins * 60 + parseInt(shortBreakSecs);
   const longBreakTimeInSeconds = longBreakMins * 60 + parseInt(longBreakSecs);
+
   const timeTemplate = [
     pomodoroTimeInSeconds,
     shortBreakTimeInSeconds,
     longBreakTimeInSeconds,
   ];
-  const currentIndex = getCurrentIndex(timerIteration, +longBreakInterval);
-  const currentTime = timeTemplate[currentIndex];
 
-  //tasks context
+  //Determine if it's pomodoro, longbreak or shortbreak based on current iteration
+  const currentTimerIndex = getCurrentIndex(timerIteration, +longBreakInterval);
+  const currentTime = timeTemplate[currentTimerIndex];
 
   // Run the timer every 0.1s
   useEffect(() => {
@@ -65,7 +67,7 @@ function App() {
     return () => clearInterval(interval);
   }, [elapsedTimeInSeconds, currentTime, isRunning]);
 
-  //Run the timer when tab is inactive
+  //Update the timer when tab goes from inactive to active
   const hideTime = useRef(0);
 
   const visibilityChangeHandler = useCallback(() => {
