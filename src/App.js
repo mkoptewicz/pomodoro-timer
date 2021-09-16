@@ -42,12 +42,28 @@ function App() {
   };
 
   //tasks context
-  const { tasks } = useContext(TasksContext);
+  const { tasks, completeTaskHandler, markAsCurrentHandler } =
+    useContext(TasksContext);
+
   const currentTask = tasks.find(task => task.isCurrent) || defaultTask;
 
   const completedPomodoros = Math.ceil(timerIteration / 2);
 
   const currentTime = getCurrentTimer(currentTask, timerIteration);
+
+  useEffect(() => {
+    if (completedPomodoros === currentTask.pomodoroNumber) {
+      completeTaskHandler(currentTask.id, completedPomodoros);
+      setTimerIteration(0);
+      markAsCurrentHandler(null);
+    }
+  }, [
+    currentTask.id,
+    currentTask.pomodoroNumber,
+    completedPomodoros,
+    completeTaskHandler,
+    markAsCurrentHandler,
+  ]);
 
   // Run the timer every 0.1s
   useEffect(() => {
