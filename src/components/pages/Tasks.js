@@ -12,7 +12,7 @@ const Tasks = () => {
   return (
     <>
       <h2>Tasks</h2>
-      <h3>Active tasks</h3>
+      <h3>Click the play button to select current task</h3>
       <div className="task-container">
         {tasksCtx.tasks.map(task => (
           <Task key={task.id} {...task} />

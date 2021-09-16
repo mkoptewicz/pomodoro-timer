@@ -1,5 +1,6 @@
 .circle {
   position: relative;
+  margin-top: 2rem;
 }
 .circle__svg {
   transform: rotate(-90deg);

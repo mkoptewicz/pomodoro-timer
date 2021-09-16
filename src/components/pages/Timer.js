@@ -1,7 +1,9 @@
+import { useContext } from "react";
 import ProgressCircle from "../ProgressCircle";
 import ControlButtons from "../ControlButtons";
-
+import TasksContext from "../../contexts/tasks-context";
 import "./Timer.css";
+import Task from "../Task";
 
 const Timer = ({
   timeInSeconds,
@@ -13,9 +15,13 @@ const Timer = ({
   onPause,
   onContinue,
 }) => {
+  const { tasks } = useContext(TasksContext);
+  const currentTask = tasks.find(task => task.isCurrent);
+  
   return (
     <>
-      <h1>Timer</h1>
+      {currentTask && <Task {...currentTask} />}
+      {!currentTask && <h1>Timer</h1>}
       <ProgressCircle
         timeInSeconds={timeInSeconds}
         elapsedTimeInSeconds={elapsedTimeInSeconds}
