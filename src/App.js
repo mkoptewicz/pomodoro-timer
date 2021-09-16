@@ -43,8 +43,12 @@ function App() {
   };
 
   //tasks context
-  const { tasks, completeTaskHandler, markAsCurrentHandler } =
-    useContext(TasksContext);
+  const {
+    tasks,
+    completeTaskHandler,
+    markAsCurrentHandler,
+    changePomodorosCompletedHandler,
+  } = useContext(TasksContext);
 
   const currentTask = tasks.find(task => task.isCurrent) || defaultTask;
 
@@ -52,10 +56,22 @@ function App() {
 
   const currentTime = getCurrentTimer(currentTask, timerIteration);
 
+  useEffect(() => {
+    if (elapsedTimeInSeconds >= currentTime) {
+      changePomodorosCompletedHandler(currentTask.id, completedPomodoros + 1);
+    }
+  }, [
+    elapsedTimeInSeconds,
+    currentTime,
+    changePomodorosCompletedHandler,
+    currentTask.id,
+    completedPomodoros,
+  ]);
+
   //Mark as completed when all pomodoros set in the task are completed
   useEffect(() => {
     if (completedPomodoros === currentTask.pomodoroNumber) {
-      completeTaskHandler(currentTask.id, completedPomodoros);
+      completeTaskHandler(currentTask.id);
       setPomodoroWasCompleted(true);
       setTimerIteration(0);
       markAsCurrentHandler(null); // set every task isCurrent property to false

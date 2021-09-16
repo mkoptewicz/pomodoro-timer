@@ -10,6 +10,7 @@ const TasksContext = React.createContext({
       isCurrent: false,
       isCompleted: false,
       pomodoroNumber: 4,
+      pomodorosCompleted: 0,
       pomodoroTimeInSeconds: 10,
       shortBreakTimeInSeconds: 3,
       longBreakTimeInSeconds: 5,
@@ -22,6 +23,7 @@ const TasksContext = React.createContext({
   removeAllTasksHandler: () => {},
   markAsCurrentHandler: () => {},
   completeTaskHandler: () => {},
+  changePomodorosCompletedHandler: () => {},
 });
 
 export const TasksContextProvider = props => {
@@ -32,6 +34,7 @@ export const TasksContextProvider = props => {
       isCurrent: true,
       isCompleted: false,
       pomodoroNumber: 2,
+      pomodorosCompleted: 0,
       pomodoroTimeInSeconds: 3,
       shortBreakTimeInSeconds: 2,
       longBreakTimeInSeconds: 5,
@@ -43,6 +46,7 @@ export const TasksContextProvider = props => {
       isCurrent: false,
       isCompleted: false,
       pomodoroNumber: 2,
+      pomodorosCompleted: 0,
       pomodoroTimeInSeconds: 10,
       shortBreakTimeInSeconds: 3,
       longBreakTimeInSeconds: 5,
@@ -60,6 +64,7 @@ export const TasksContextProvider = props => {
       isCurrent: false,
       isCompleted: false,
       pomodoroNumber,
+      pomodorosCompleted: 0,
       pomodoroTimeInSeconds: pomodoroMins * 60,
       shortBreakTimeInSeconds: shortBreakMins * 60,
       longBreakTimeInSeconds: longBreakMins * 60,
@@ -103,6 +108,16 @@ export const TasksContextProvider = props => {
     });
     setTasks(updatedTasks);
   };
+  const changePomodorosCompletedHandler = (id, pomodorosCompleted) => {
+    const updatedTasks = tasks.map(task => {
+      if (task.id === id) {
+        const updatedTask = { ...task, pomodorosCompleted };
+        return updatedTask;
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+  };
 
   return (
     <TasksContext.Provider
@@ -114,6 +129,7 @@ export const TasksContextProvider = props => {
         removeAllTasksHandler,
         markAsCurrentHandler,
         completeTaskHandler,
+        changePomodorosCompletedHandler,
       }}
     >
       {props.children}
