@@ -14,7 +14,6 @@ const Timer = ({
   onStop,
   onPause,
   onContinue,
-  completedPomodoros,
   pomodoroWasCompleted,
 }) => {
   const { tasks } = useContext(TasksContext);
@@ -23,7 +22,7 @@ const Timer = ({
   return (
     <>
       {currentTask && (
-        <Task {...currentTask} completedPomodoros={completedPomodoros} />
+        <Task {...currentTask}  />
       )}
       {!currentTask && <h1>Timer</h1>}
       {pomodoroWasCompleted && (
