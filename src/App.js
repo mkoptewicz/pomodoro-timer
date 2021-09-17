@@ -22,6 +22,7 @@ function App() {
   const [timerIteration, setTimerIteration] = useState(0);
   const [elapsedTimeInSeconds, setElapsedTimeInSeconds] = useState(0);
   const [pomodoroWasCompleted, setPomodoroWasCompleted] = useState(false);
+  const [completedPomodoros, setCompletedPomodoros] = useState(0);
 
   //settings context
   const settingsCtx = useContext(SettingsContext);
@@ -40,6 +41,7 @@ function App() {
     longBreakTimeInSeconds: longBreakMins * 60,
     interval,
     pomodoroNumber: 1,
+    pomodorosCompleted: 0,
   };
 
   //tasks context
@@ -52,36 +54,31 @@ function App() {
 
   const currentTask = tasks.find(task => task.isCurrent) || defaultTask;
 
-  const completedPomodoros = Math.ceil(timerIteration / 2);
-
   const currentTime = getCurrentTimer(currentTask, timerIteration);
 
+  //Don't increment completed pomodoros when break ends
   useEffect(() => {
-    if (elapsedTimeInSeconds >= currentTime) {
-      changePomodorosCompletedHandler(currentTask.id, completedPomodoros + 1);
+    if (timerIteration % 2 !== 0) {
+      setCompletedPomodoros(prevCompleted => prevCompleted + 1);
     }
-  }, [
-    elapsedTimeInSeconds,
-    currentTime,
-    changePomodorosCompletedHandler,
-    currentTask.id,
-    completedPomodoros,
-  ]);
+  }, [timerIteration]);
+
+  useEffect(() => {
+    changePomodorosCompletedHandler(currentTask.id, completedPomodoros);
+  }, [currentTask.id, completedPomodoros]);
 
   //Mark as completed when all pomodoros set in the task are completed
   useEffect(() => {
-    if (completedPomodoros === currentTask.pomodoroNumber) {
+    if (Math.ceil(timerIteration / 2) === currentTask.pomodoroNumber) {
       completeTaskHandler(currentTask.id);
       setPomodoroWasCompleted(true);
       setTimerIteration(0);
-      markAsCurrentHandler(null); // set every task isCurrent property to false
     }
   }, [
+    timerIteration,
     currentTask.id,
     currentTask.pomodoroNumber,
-    completedPomodoros,
     completeTaskHandler,
-    markAsCurrentHandler,
   ]);
 
   // Run the timer every 0.1s
@@ -131,13 +128,16 @@ function App() {
   useEffect(() => {
     let timeout;
     if (pomodoroWasCompleted) {
-      timeout = setTimeout(() => setPomodoroWasCompleted(false), 3000);
+      timeout = setTimeout(() => {
+        setPomodoroWasCompleted(false);
+        markAsCurrentHandler(null);
+      }, 3000);
     }
 
     return () => {
       clearTimeout(timeout);
     };
-  }, [pomodoroWasCompleted]);
+  }, [pomodoroWasCompleted, markAsCurrentHandler]);
 
   //Handlers
   const startHandler = () => {
@@ -155,6 +155,7 @@ function App() {
     setIsRunning(true);
     setIsPaused(false);
   };
+  console.log(currentTask);
 
   return (
     <div className="app">
@@ -170,7 +171,6 @@ function App() {
             onStop={stopHandler}
             onPause={pauseHandler}
             onContinue={continueHandler}
-            completedPomodoros={completedPomodoros}
             pomodoroWasCompleted={pomodoroWasCompleted}
           />
         </Route>
