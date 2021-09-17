@@ -17,6 +17,9 @@ const AddTask = () => {
     if (!title) {
       return;
     }
+    if (pomodoroNumber > 99) {
+      pomodoroNumber = 99;
+    }
     //Use url to determine weather it's edit mode or new task
     currentTask
       ? onEditTask(taskId, title, pomodoroNumber)
@@ -41,6 +44,7 @@ const AddTask = () => {
           type="number"
           defaultValue={currentTask?.pomodoroNumber || "1"}
           min="1"
+          max="99"
         />
         <div className="button-container">
           <button
