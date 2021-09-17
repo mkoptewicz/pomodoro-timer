@@ -22,7 +22,7 @@ const Tasks = () => {
         Add task
       </Link>
       <button
-        onClick={tasksCtx.removeAllTasksHandler}
+        onClick={tasksCtx.onRemoveAllTasks}
         className="button button--remove"
       >
         Remove all
