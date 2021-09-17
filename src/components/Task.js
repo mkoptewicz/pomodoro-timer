@@ -15,8 +15,7 @@ const Task = ({
   pomodoroTimeInSeconds,
   pomodorosCompleted,
 }) => {
-  const { tasks, removeTaskHandler, markAsCurrentHandler } =
-    useContext(TasksContext);
+  const { tasks, onRemoveTask, onMarkAsCurrent } = useContext(TasksContext);
 
   const history = useHistory();
 
@@ -26,7 +25,7 @@ const Task = ({
       console.log("completed");
       return;
     }
-    markAsCurrentHandler(id);
+    onMarkAsCurrent(id);
     history.push("/");
   };
 
@@ -46,7 +45,7 @@ const Task = ({
       <Link to={`tasks/addTask/${id}`}>
         <Edit />
       </Link>
-      <button onClick={() => removeTaskHandler(id)} className="button-delete">
+      <button onClick={() => onRemoveTask(id)} className="button-delete">
         <Delete />
       </button>
       <p>{Math.round(pomodoroTimeInSeconds / 60)} min</p>

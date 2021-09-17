@@ -18,12 +18,11 @@ const Timer = ({
 }) => {
   const { tasks } = useContext(TasksContext);
   const currentTask = tasks.find(task => task.isCurrent);
+ 
 
   return (
     <>
-      {currentTask && (
-        <Task {...currentTask}  />
-      )}
+      {currentTask && <Task {...currentTask} />}
       {!currentTask && <h1>Timer</h1>}
       {pomodoroWasCompleted && (
         <p>Congrats! You've completed all the pomodoros in the task!</p>

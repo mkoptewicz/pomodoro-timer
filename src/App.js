@@ -45,12 +45,8 @@ function App() {
   };
 
   //tasks context
-  const {
-    tasks,
-    completeTaskHandler,
-    markAsCurrentHandler,
-    changePomodorosCompletedHandler,
-  } = useContext(TasksContext);
+  const { tasks, onCompleteTask, onMarkAsCurrent, onChangePomodorosCompleted } =
+    useContext(TasksContext);
 
   const currentTask = tasks.find(task => task.isCurrent) || defaultTask;
 
@@ -64,13 +60,13 @@ function App() {
   }, [timerIteration]);
 
   useEffect(() => {
-    changePomodorosCompletedHandler(currentTask.id, completedPomodoros);
+    onChangePomodorosCompleted(currentTask.id, completedPomodoros);
   }, [currentTask.id, completedPomodoros]); // eslint-disable-line
 
   //Mark as completed when all pomodoros set in the task are completed
   useEffect(() => {
     if (Math.ceil(timerIteration / 2) === currentTask.pomodoroNumber) {
-      completeTaskHandler(currentTask.id);
+      onCompleteTask(currentTask.id);
       setPomodoroWasCompleted(true);
       setTimerIteration(0);
     }
@@ -78,7 +74,7 @@ function App() {
     timerIteration,
     currentTask.id,
     currentTask.pomodoroNumber,
-    completeTaskHandler,
+    onCompleteTask,
   ]);
 
   // Run the timer every 0.1s
@@ -130,14 +126,14 @@ function App() {
     if (pomodoroWasCompleted) {
       timeout = setTimeout(() => {
         setPomodoroWasCompleted(false);
-        markAsCurrentHandler(null);
+        onMarkAsCurrent(null);
       }, 3000);
     }
 
     return () => {
       clearTimeout(timeout);
     };
-  }, [pomodoroWasCompleted, markAsCurrentHandler]);
+  }, [pomodoroWasCompleted, onMarkAsCurrent]);
 
   //Handlers
   const startHandler = () => {

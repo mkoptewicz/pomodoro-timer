@@ -17,13 +17,13 @@ const TasksContext = React.createContext({
       interval: 2,
     },
   ],
-  addTaskHandler: () => {},
-  editTaskHandler: () => {},
-  removeTaskHandler: () => {},
-  removeAllTasksHandler: () => {},
-  markAsCurrentHandler: () => {},
-  completeTaskHandler: () => {},
-  changePomodorosCompletedHandler: () => {},
+  onAddTask: () => {},
+  onEditTask: () => {},
+  onRemoveTask: () => {},
+  onRemoveAllTasks: () => {},
+  onMarkAsCurrent: () => {},
+  onCompleteTask: () => {},
+  onChangePomodorosCompleted: () => {},
 });
 
 export const TasksContextProvider = props => {
@@ -123,13 +123,13 @@ export const TasksContextProvider = props => {
     <TasksContext.Provider
       value={{
         tasks,
-        addTaskHandler,
-        editTaskHandler,
-        removeTaskHandler,
-        removeAllTasksHandler,
-        markAsCurrentHandler,
-        completeTaskHandler,
-        changePomodorosCompletedHandler,
+        onAddTask: addTaskHandler,
+        onEditTask: editTaskHandler,
+        onRemoveTask: removeTaskHandler,
+        onRemoveAllTasks: removeAllTasksHandler,
+        onMarkAsCurrent: markAsCurrentHandler,
+        onCompleteTask: completeTaskHandler,
+        onChangePomodorosCompleted: changePomodorosCompletedHandler,
       }}
     >
       {props.children}
