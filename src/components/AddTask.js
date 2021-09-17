@@ -4,23 +4,23 @@ import "./AddTask.css";
 import TasksContext from "../contexts/tasks-context";
 
 const AddTask = () => {
-  const tasksCtx = useContext(TasksContext);
+  const { tasks, onEditTask, onAddTask } = useContext(TasksContext);
 
   const history = useHistory();
   const { taskId } = useParams();
   const titleRef = useRef();
   const pomodorosRef = useRef();
 
-  const currentTask = tasksCtx.tasks.find(task => task.id === taskId);
+  const currentTask = tasks.find(task => task.id === taskId);
 
   const confirmHandler = (title, pomodoroNumber) => {
     if (!title) {
       return;
     }
-
+    //Use url to determine weather it's edit mode or new task
     currentTask
-      ? tasksCtx.editTaskHandler(taskId, title, pomodoroNumber)
-      : tasksCtx.addTaskHandler(title, pomodoroNumber);
+      ? onEditTask(taskId, title, pomodoroNumber)
+      : onAddTask(title, pomodoroNumber);
     history.push("/tasks");
   };
 
@@ -45,7 +45,10 @@ const AddTask = () => {
         <div className="button-container">
           <button
             onClick={() =>
-              confirmHandler(titleRef.current.value, +pomodorosRef.current.value)
+              confirmHandler(
+                titleRef.current.value,
+                +pomodorosRef.current.value
+              )
             }
             className="button"
           >
