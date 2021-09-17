@@ -3,7 +3,7 @@ import { ReactComponent as Play } from "../icons/play.svg";
 import { ReactComponent as Edit } from "../icons/edit.svg";
 import { ReactComponent as Delete } from "../icons/delete.svg";
 
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useContext } from "react";
 import TasksContext from "../contexts/tasks-context";
 import "./Task.css";
@@ -15,17 +15,30 @@ const Task = ({
   pomodoroTimeInSeconds,
   pomodorosCompleted,
 }) => {
-  const { removeTaskHandler, markAsCurrentHandler } = useContext(TasksContext);
+  const { tasks, removeTaskHandler, markAsCurrentHandler } =
+    useContext(TasksContext);
+
+  const history = useHistory();
+
+  const playClickHandler = id => {
+    const task = tasks.find(task => task.id === id);
+    if (!task || task.isCompleted) {
+      console.log("completed");
+      return;
+    }
+    markAsCurrentHandler(id);
+    history.push("/");
+  };
 
   return (
     <div className="task">
-      <Link
+      <button
         to={"/"}
-        onClick={() => markAsCurrentHandler(id)}
+        onClick={() => playClickHandler(id)}
         className="button-timer"
       >
         <Play />
-      </Link>
+      </button>
       <h3>{title}</h3>
       <button className="button-status">
         <Check />
