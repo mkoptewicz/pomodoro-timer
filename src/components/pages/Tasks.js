@@ -18,8 +18,8 @@ const Tasks = () => {
           <Task key={task.id} {...task} />
         ))}
       </div>
-      <Link to={`${match.url}/addTask`}>
-        <button className="button">Add task</button>
+      <Link to={`${match.url}/addTask`} className="button">
+        Add task
       </Link>
       <button
         onClick={tasksCtx.removeAllTasksHandler}
