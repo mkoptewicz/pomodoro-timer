@@ -3,7 +3,7 @@ import ProgressCircle from "../ProgressCircle";
 import ControlButtons from "../ControlButtons";
 import TasksContext from "../../contexts/tasks-context";
 import "./Timer.css";
-import Task from "../Task";
+import CurrentTaskInfo from "../CurrentTaskInfo";
 
 const Timer = ({
   timeInSeconds,
@@ -18,11 +18,12 @@ const Timer = ({
 }) => {
   const { tasks } = useContext(TasksContext);
   const currentTask = tasks.find(task => task.isCurrent);
+
  
 
   return (
     <>
-      {currentTask && <Task {...currentTask} />}
+      {currentTask && <CurrentTaskInfo {...currentTask} />}
       {!currentTask && <h1>Timer</h1>}
       {pomodoroWasCompleted && (
         <p>Congrats! You've completed all the pomodoros in the task!</p>
