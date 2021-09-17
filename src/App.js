@@ -65,7 +65,7 @@ function App() {
 
   useEffect(() => {
     changePomodorosCompletedHandler(currentTask.id, completedPomodoros);
-  }, [currentTask.id, completedPomodoros]);
+  }, [currentTask.id, completedPomodoros]); // eslint-disable-line
 
   //Mark as completed when all pomodoros set in the task are completed
   useEffect(() => {
