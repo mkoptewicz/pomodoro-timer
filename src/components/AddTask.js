@@ -45,7 +45,7 @@ const AddTask = () => {
         <div className="button-container">
           <button
             onClick={() =>
-              confirmHandler(titleRef.current.value, pomodorosRef.current.value)
+              confirmHandler(titleRef.current.value, +pomodorosRef.current.value)
             }
             className="button"
           >
