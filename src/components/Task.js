@@ -22,7 +22,6 @@ const Task = ({
   const playClickHandler = id => {
     const task = tasks.find(task => task.id === id);
     if (!task || task.isCompleted) {
-      console.log("completed");
       return;
     }
     onMarkAsCurrent(id);
