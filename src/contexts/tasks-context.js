@@ -27,32 +27,7 @@ const TasksContext = React.createContext({
 });
 
 export const TasksContextProvider = props => {
-  const [tasks, setTasks] = useState([
-    {
-      id: uuidv4(),
-      title: "Task 1",
-      isCurrent: true,
-      isCompleted: false,
-      pomodoroNumber: 2,
-      pomodorosCompleted: 0,
-      pomodoroTimeInSeconds: 3,
-      shortBreakTimeInSeconds: 2,
-      longBreakTimeInSeconds: 5,
-      interval: 2,
-    },
-    {
-      id: uuidv4(),
-      title: "Task 2",
-      isCurrent: false,
-      isCompleted: false,
-      pomodoroNumber: 2,
-      pomodorosCompleted: 0,
-      pomodoroTimeInSeconds: 10,
-      shortBreakTimeInSeconds: 3,
-      longBreakTimeInSeconds: 5,
-      interval: 1,
-    },
-  ]);
+  const [tasks, setTasks] = useState([]);
   const settingsCtx = useContext(SettingsContext);
   const { pomodoroMins, shortBreakMins, longBreakMins, longBreakInterval } =
     settingsCtx.settings;
@@ -89,6 +64,7 @@ export const TasksContextProvider = props => {
   const removeAllTasksHandler = () => setTasks([]);
 
   const markAsCurrentHandler = id => {
+    
     const updatedTasks = tasks.map(task => {
       if (task.id === id) {
         const updatedTask = { ...task, isCurrent: true };
@@ -99,6 +75,7 @@ export const TasksContextProvider = props => {
     setTasks(updatedTasks);
   };
   const completeTaskHandler = id => {
+    
     const updatedTasks = tasks.map(task => {
       if (task.id === id) {
         const updatedTask = { ...task, isCompleted: true };
@@ -109,6 +86,7 @@ export const TasksContextProvider = props => {
     setTasks(updatedTasks);
   };
   const changePomodorosCompletedHandler = (id, pomodorosCompleted) => {
+
     const updatedTasks = tasks.map(task => {
       if (task.id === id) {
         const updatedTask = { ...task, pomodorosCompleted };
