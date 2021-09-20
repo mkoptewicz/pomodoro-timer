@@ -52,30 +52,36 @@ function App() {
 
   const currentTime = getCurrentTimer(currentTask, timerIteration);
 
+  //Update completed pomodoros when task has changed
+  useEffect(() => {
+    setCompletedPomodoros(currentTask.pomodorosCompleted);
+  }, [currentTask.id]); //eslint-disable-line
+
+  //Set timer's type to pomodoro when task has changed
+  useEffect(() => {
+    setTimerIteration(0);
+  }, [currentTask.id]);
+
   //Don't increment completed pomodoros when break ends
   useEffect(() => {
-    if (timerIteration % 2 !== 0) {
+    if (timerIteration % 2 !== 0 && timerIteration > 0) {
       setCompletedPomodoros(prevCompleted => prevCompleted + 1);
     }
   }, [timerIteration]);
 
   useEffect(() => {
     onChangePomodorosCompleted(currentTask.id, completedPomodoros);
-  }, [currentTask.id, completedPomodoros]); // eslint-disable-line
+  }, [currentTask.id, completedPomodoros]); //eslint-disable-line
 
   //Mark as completed when all pomodoros set in the task are completed
   useEffect(() => {
-    if (Math.ceil(timerIteration / 2) === currentTask.pomodoroNumber) {
+    if (completedPomodoros === currentTask.pomodoroNumber) {
       onCompleteTask(currentTask.id);
+      onChangePomodorosCompleted(currentTask.id, completedPomodoros);
       setPomodoroWasCompleted(true);
       setTimerIteration(0);
     }
-  }, [
-    timerIteration,
-    currentTask.id,
-    currentTask.pomodoroNumber,
-    onCompleteTask,
-  ]);
+  }, [completedPomodoros, currentTask.id, currentTask.pomodoroNumber]); //eslint-disable-line
 
   // Run the timer every 0.1s
   useEffect(() => {
@@ -151,8 +157,7 @@ function App() {
     setIsRunning(true);
     setIsPaused(false);
   };
-  console.log(currentTask);
-
+ 
   return (
     <div className="app">
       <Nav />
