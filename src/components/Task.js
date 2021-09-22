@@ -34,17 +34,22 @@ const Task = ({
         to={"/"}
         onClick={() => playClickHandler(id)}
         className="button-timer"
+        ariaLabel="Start working on this task"
       >
         <Play />
       </button>
       <h3>{title}</h3>
-      <button className="button-status">
+      <button className="button-status" ariaLabel="Mark as completed">
         <Check />
       </button>
-      <Link to={`tasks/addTask/${id}`}>
+      <Link to={`tasks/addTask/${id}`} ariaLabel="Edit">
         <Edit />
       </Link>
-      <button onClick={() => onRemoveTask(id)} className="button-delete">
+      <button
+        onClick={() => onRemoveTask(id)}
+        className="button-delete"
+        ariaLabel="Delete"
+      >
         <Delete />
       </button>
       <p>{Math.round(pomodoroTimeInSeconds / 60)} min</p>
