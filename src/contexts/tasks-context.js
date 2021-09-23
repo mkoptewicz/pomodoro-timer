@@ -73,16 +73,26 @@ export const TasksContextProvider = props => {
     });
     setTasks(updatedTasks);
   };
-  const completeTaskHandler = id => {
-    const updatedTasks = tasks.map(task => {
-      if (task.id === id) {
-        const updatedTask = { ...task, isCompleted: true };
-        return updatedTask;
-      }
-      return task;
+  const completeTaskHandler = useCallback(id => {
+    setTasks(currentTasks => {
+      const updatedTasks = currentTasks.map(task => {
+        if (task.id === id) {
+          const updatedTask = { ...task, isCompleted: true };
+          return updatedTask;
+        }
+        return task;
+      });
+      return updatedTasks;
     });
-    setTasks(updatedTasks);
-  };
+    // const updatedTasks = tasks.map(task => {
+    //   if (task.id === id) {
+    //     const updatedTask = { ...task, isCompleted: true };
+    //     return updatedTask;
+    //   }
+    //   return task;
+    // });
+    // setTasks(updatedTasks);
+  }, []);
   const changePomodorosCompletedHandler = useCallback(
     (id, pomodorosCompleted) => {
       setTasks(currentTasks => {

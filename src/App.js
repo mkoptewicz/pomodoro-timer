@@ -35,12 +35,10 @@ function App() {
   } = settingsCtx.settings;
 
   const defaultTask = {
-    id: null,
     pomodoroTimeInSeconds: pomodoroMins * 60,
     shortBreakTimeInSeconds: shortBreakMins * 60,
     longBreakTimeInSeconds: longBreakMins * 60,
     interval,
-    pomodoroNumber: 1,
     pomodorosCompleted: 0,
   };
 
@@ -55,7 +53,7 @@ function App() {
   //Update completed pomodoros when the task has changed
   useEffect(() => {
     setCompletedPomodoros(currentTask.pomodorosCompleted);
-  }, [currentTask.id]); //eslint-disable-line
+  }, [currentTask.id, currentTask.pomodorosCompleted]);
 
   //Set timer's type to pomodoro when the task has changed
   useEffect(() => {
@@ -72,7 +70,7 @@ function App() {
   //Update number of completed pomodoros in the task
   useEffect(() => {
     onChangePomodorosCompleted(currentTask.id, completedPomodoros);
-  }, [currentTask.id, completedPomodoros]); //eslint-disable-line
+  }, [onChangePomodorosCompleted, currentTask.id, completedPomodoros]);
 
   //Mark as completed when all pomodoros in the task are completed
   useEffect(() => {
@@ -81,11 +79,22 @@ function App() {
       setPomodoroWasCompleted(true);
       setTimerIteration(0);
     }
-  }, [completedPomodoros, currentTask.id, currentTask.pomodoroNumber]); //eslint-disable-line
+  }, [
+    onCompleteTask,
+    completedPomodoros,
+    currentTask.id,
+    currentTask.pomodoroNumber,
+  ]);
+
   //Make sure pomodoros completed are up to date
   useEffect(() => {
     onChangePomodorosCompleted(currentTask.id, completedPomodoros);
-  }, [onChangePomodorosCompleted, currentTask.id, completedPomodoros]);
+  }, [
+    currentTask.isCompleted,
+    onChangePomodorosCompleted,
+    currentTask.id,
+    completedPomodoros,
+  ]);
 
   // Run the timer every 0.1s
   useEffect(() => {
