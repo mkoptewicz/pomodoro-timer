@@ -85,7 +85,7 @@ function App() {
   //Make sure pomodoros completed are up to date
   useEffect(() => {
     onChangePomodorosCompleted(currentTask.id, completedPomodoros);
-  }, [currentTask.isCompleted]); // eslint-disable-line
+  }, [onChangePomodorosCompleted, currentTask.id, completedPomodoros]);
 
   // Run the timer every 0.1s
   useEffect(() => {

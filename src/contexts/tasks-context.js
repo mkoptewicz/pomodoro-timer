@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import SettingsContext from "./settings-contex";
 
@@ -64,7 +64,6 @@ export const TasksContextProvider = props => {
   const removeAllTasksHandler = () => setTasks([]);
 
   const markAsCurrentHandler = id => {
-    
     const updatedTasks = tasks.map(task => {
       if (task.id === id) {
         const updatedTask = { ...task, isCurrent: true };
@@ -75,7 +74,6 @@ export const TasksContextProvider = props => {
     setTasks(updatedTasks);
   };
   const completeTaskHandler = id => {
-    
     const updatedTasks = tasks.map(task => {
       if (task.id === id) {
         const updatedTask = { ...task, isCompleted: true };
@@ -85,17 +83,29 @@ export const TasksContextProvider = props => {
     });
     setTasks(updatedTasks);
   };
-  const changePomodorosCompletedHandler = (id, pomodorosCompleted) => {
-
-    const updatedTasks = tasks.map(task => {
-      if (task.id === id) {
-        const updatedTask = { ...task, pomodorosCompleted };
-        return updatedTask;
-      }
-      return task;
-    });
-    setTasks(updatedTasks);
-  };
+  const changePomodorosCompletedHandler = useCallback(
+    (id, pomodorosCompleted) => {
+      setTasks(currentTasks => {
+        const updatedTasks = currentTasks.map(task => {
+          if (task.id === id) {
+            const updatedTask = { ...task, pomodorosCompleted };
+            return updatedTask;
+          }
+          return task;
+        });
+        return updatedTasks;
+      });
+      // const updatedTasks = tasks.map(task => {
+      //   if (task.id === id) {
+      //     const updatedTask = { ...task, pomodorosCompleted };
+      //     return updatedTask;
+      //   }
+      //   return task;
+      // });
+      // setTasks(updatedTasks);
+    },
+    []
+  );
 
   return (
     <TasksContext.Provider
